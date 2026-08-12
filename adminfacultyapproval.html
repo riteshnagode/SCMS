@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event & Club Approvals | Admin Portal</title>
+    <link rel="stylesheet" href="try.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <style>
+        :root {
+    --navy: #0e2a53;
+    --blue: #1a73e8;
+    --bg-light: #f4f7fa;
+    --red: #e74c3c;
+    --yellow: #f1c40f;
+    --purple: #9b59b6;
+    --green: #2ecc71;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+body { background: var(--bg-light); height: 100vh; overflow: hidden; }
+
+.admin-wrapper { display: flex; height: 100vh; }
+
+/* SIDEBAR */
+.sidebar { width: 280px; background: var(--navy); color: white; padding: 40px 20px; flex-shrink: 0; }
+.admin-profile { text-align: center; margin-bottom: 40px; }
+.avatar { width: 60px; height: 60px; background: var(--blue); border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+.nav-menu { display: flex; flex-direction: column; gap: 8px; }
+.nav-item { text-decoration: none; color: rgba(255,255,255,0.7); padding: 12px 15px; border-radius: 8px; font-weight: 500; font-size: 0.9rem; }
+.nav-item.active { background: rgba(255,255,255,0.1); color: white; }
+.logout { color: #ff8a80; margin-top: 30px; }
+
+/* MAIN CONTENT */
+.main-content { flex-grow: 1; overflow-y: auto; padding: 50px; }
+.top-bar { margin-bottom: 40px; }
+.header-text h1 { font-size: 1.8rem; color: var(--navy); margin-bottom: 5px; }
+
+/* CONFLICT BANNER */
+.conflict-warning { border-left: 6px solid var(--red) !important; }
+.conflict-banner { background: #fff5f5; color: var(--red); padding: 10px 15px; border-radius: 6px; font-size: 0.8rem; font-weight: 700; margin-bottom: 20px; border: 1px solid #fed7d7; }
+
+/* CLUB BORDER */
+.club-border { border-left: 6px solid var(--purple) !important; }
+
+/* CARDS */
+.event-card { background: white; border-radius: 12px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border-left: 6px solid #ccc; }
+.event-header { display: flex; justify-content: space-between; margin-bottom: 20px; }
+.status-badge { font-size: 0.7rem; font-weight: 700; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; }
+.status-badge.pending { background: #fee2e2; color: #991b1b; }
+.status-badge.club { background: #f3e5f5; color: #7b1fa2; }
+
+.event-body h3 { font-size: 1.4rem; color: var(--navy); margin-bottom: 10px; }
+.organizer { font-size: 0.95rem; margin-bottom: 10px; }
+.description { font-size: 0.9rem; color: #666; line-height: 1.6; margin-bottom: 20px; }
+
+.resource-info { display: flex; gap: 30px; font-size: 0.85rem; color: #555; background: #f8f9fa; padding: 12px 20px; border-radius: 8px; }
+
+/* FOOTER & BUTTONS */
+.event-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; }
+.btn-secondary { padding: 10px 18px; border: 1px solid #ddd; background: white; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 600; }
+
+.action-buttons { display: flex; gap: 10px; }
+.btn-approve, .btn-reject { padding: 10px 20px; border-radius: 6px; font-weight: 700; cursor: pointer; text-align: center; font-size: 0.85rem; }
+.btn-approve { background: var(--green); color: white; border: none; }
+.btn-reject { background: var(--red); color: white; border: none; }
+
+/* POP-UP STYLES */
+.pop-toggle { display: none; }
+.pop-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(14, 42, 83, 0.6); backdrop-filter: blur(4px);
+    display: none; justify-content: center; align-items: center; z-index: 2000;
+}
+.pop-toggle:checked + .pop-overlay { display: flex; }
+
+.pop-box {
+    background: white; padding: 40px; border-radius: 15px; text-align: center;
+    max-width: 400px; width: 90%; box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.icon { font-size: 50px; margin-bottom: 15px; }
+.icon.green { color: var(--green); }
+.icon.red { color: var(--red); }
+
+.pop-close {
+    display: inline-block; margin-top: 20px; padding: 10px 30px;
+    background: var(--navy); color: white; border-radius: 6px;
+    font-weight: 600; cursor: pointer;
+}
+
+@keyframes popIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+     .back{
+     
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  font-size: 22px;
+  cursor: pointer;
+  height: 30px;
+  width: 60px;
+  background: #e6e6e6cf;
+  color: black;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+    </style>
+     <a style="text-decoration: none;" href="http://127.0.0.1:5500/adminfaculty.html#"><div class="back">Back</div></a>
+    <div class="admin-wrapper">
+        <!-- <aside class="sidebar">
+            <div class="admin-profile">
+                <div class="avatar">AD</div>
+                <h3>System Admin</h3>
+                <p>WIT Solapur</p>
+            </div> -->
+            <!-- <nav class="nav-menu">
+                <a href="admin-dashboard.html" class="nav-item">📊 Dashboard</a>
+                <a href="#" class="nav-item">🏢 Academics</a>
+                <a href="#" class="nav-item active">📅 Event Approvals</a>
+              
+                <a href="http://127.0.0.1:5500/adminlogin.html#" class="nav-item logout">⏻ Logout</a>
+            </nav> -->
+        </aside>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="header-text">
+                    <h1> Approvals</h1>
+                 
+                </div>
+            </header>
+
+            <div class="event-grid">
+                
+                <div class="event-card conflict-warning">
+                    <div class="event-header">
+                       <p><strong>Ms. S. S. Mathpati</strong> has applied for medical leave (2 days).</p>
+                    </div>
+                    <div class="event-footer">
+                        <button class="btn-secondary">Details</button>
+                        <div class="action-buttons">
+                            <label for="reject-pop-1" class="btn-reject">Reject</label>
+                            <label for="approve-pop-1" class="btn-approve">Approve Leave</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="event-card club-border">
+                    <div class="event-header">
+                        <span class="status-badge club">Leave</span>
+                        <span class="date-tag">Date: 02 March 2026</span>
+                    </div>
+                  
+                     <p><strong>Mr.A. Babar </strong> has applied for One Day leave.</p>
+                    <div class="event-footer">
+                        <button class="btn-secondary">Details</button>
+                        <div class="action-buttons">
+                            <label for="reject-pop-2" class="btn-reject">Reject</label>
+                            <label for="approve-pop-2" class="btn-approve">Approve Leave</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <input type="checkbox" id="approve-pop-1" class="pop-toggle">
+    <div class="pop-overlay">
+        <div class="pop-box">
+            <div class="icon green">✓</div>
+            <h3>Event Leave</h3>
+            <!-- <p>Leave Approved</p> -->
+            <label for="approve-pop-1" class="pop-close">Close</label>
+        </div>
+    </div>
+
+    <input type="checkbox" id="reject-pop-1" class="pop-toggle">
+    <div class="pop-overlay">
+        <div class="pop-box">
+            <div class="icon red">✕</div>
+            <!-- <h3>Event Rejected</h3> -->
+            <p>Leave Rejected</p>
+            <label for="reject-pop-1" class="pop-close">Close</label>
+        </div>
+    </div>
+    
+
+    <input type="checkbox" id="approve-pop-2" class="pop-toggle">
+    <div class="pop-overlay">
+        <div class="pop-box">
+            <div class="icon green">✓</div>
+            <!-- <h3>Leave Approved</h3> -->
+              <p>Leave Approved</p>
+            <label for="approve-pop-2" class="pop-close">Close</label>
+        </div>
+    </div>
+
+
+    <input type="checkbox" id="reject-pop-2" class="pop-toggle">
+    <div class="pop-overlay">
+        <div class="pop-box">
+            <div class="icon red">✕</div>
+            <h3> Leave Rejected</h3>
+              <!-- <p>The request for Leave has been declined.</p> -->
+            <label for="reject-pop-2" class="pop-close">Close</label>
+        </div>
+        
+    </div>
+
+</body>
+</html>

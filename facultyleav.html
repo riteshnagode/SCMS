@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Leave Portal | WIT Solapur</title>
+    <link rel="stylesheet" href="facultyleave.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <style>
+        :root {
+    --primary-blue: #0e54a3;
+    --navy: #0e2a53;
+    --bg: #f4f7fa;
+    --white: #ffffff;
+    --text-main: #334155;
+    --text-muted: #64748b;
+    --green: #10b981;
+    --red: #ef4444;
+    --purple: #6d28d9;
+    --orange: #f59e0b;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+body { background: var(--bg); color: var(--text-main); line-height: 1.6; }
+
+/* Faculty Header */
+.main-header { background: var(--navy); color: white; padding: 15px 40px; position: sticky; top: 0; z-index: 100; }
+.header-content { max-width: 1600px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+.brand-info { display: flex; align-items: center; gap: 15px; }
+.logo { font-weight: 800; font-size: 1.3rem; letter-spacing: 1px; color: var(--white); }
+.user-profile { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.1); padding: 6px 15px; border-radius: 50px; }
+.avatar.faculty-av { background: var(--purple); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; }
+
+/* Grid Layout */
+.content-wrapper { max-width: 1600px; margin: 0 auto; padding: 40px; }
+.page-heading { margin-bottom: 30px; font-size: 1.8rem; color: var(--navy); }
+.leave-grid { display: grid; grid-template-columns: 580px 1fr; gap: 40px; align-items: flex-start; }
+
+.card { background: var(--white); border-radius: 16px; padding: 35px; box-shadow: 0 10px 25px rgba(0,0,0,0.03); border: 1px solid #e2e8f0; }
+
+/* History Section */
+.history-panel h3 { font-size: 1.1rem; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid var(--bg); }
+.history-item { padding: 20px 0; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; }
+.status.approved { color: var(--green); font-size: 0.7rem; font-weight: 800; letter-spacing: 1px; }
+.btn-outline { padding: 6px 12px; border: 1px solid var(--primary-blue); background: transparent; color: var(--primary-blue); border-radius: 6px; font-size: 0.75rem; cursor: pointer; font-weight: 600; }
+.view-all-link { display: block; margin-top: 25px; text-align: center; color: var(--primary-blue); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+
+/* Form Elements */
+.form-row { display: grid; grid-template-columns: 1fr 1fr 1.5fr; gap: 25px; margin-bottom: 25px; }
+.input-group label { display: block; font-size: 0.85rem; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+input[type="date"], textarea { width: 100%; padding: 12px 15px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; }
+.admin-box { background: #f0f7ff; border: 1px solid #d0e3ff; padding: 12px; border-radius: 8px; text-align: center; }
+.admin-box strong { display: block; color: var(--navy); font-size: 0.95rem; }
+
+/* File Attachment */
+.file-drop-area { border: 2px dashed #cbd5e1; padding: 25px; border-radius: 12px; text-align: center; background: #fafafa; }
+.file-btn { display: inline-block; padding: 10px 20px; background: #e2e8f0; color: var(--navy); border-radius: 8px; font-weight: 700; cursor: pointer; }
+
+/* Footer & Pop-up */
+.footer-actions { margin-top: 50px; display: flex; justify-content: space-between; align-items: center; }
+.btn-submit { background: var(--purple); color: white; border: none; padding: 15px 40px; border-radius: 10px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 15px rgba(109, 40, 217, 0.3); }
+
+.pop-toggle { display: none; }
+.pop-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 25, 47, 0.7); backdrop-filter: blur(4px); display: none; justify-content: center; align-items: center; z-index: 2000; }
+.pop-toggle:checked + .pop-overlay { display: flex; }
+.pop-box { background: white; padding: 40px; border-radius: 15px; text-align: center; max-width: 400px; width: 90%; }
+.pop-icon { font-size: 50px; margin-bottom: 15px; }
+.pop-close { display: inline-block; margin-top: 20px; padding: 10px 30px; background: var(--navy); color: white; border-radius: 6px; font-weight: 600; cursor: pointer; }
+    </style>
+
+    <div class="leave-container">
+        <header class="main-header">
+            <div class="header-content">
+                <div class="brand-info">
+                    <span class="logo">SCMS</span>
+                    <span class="pipe">|</span>
+                    <span class="system-title">Faculty Management System</span>
+                </div>
+                <div class="user-meta">
+                    <span class="term">2025-26 | Term: II</span>
+                    <div class="user-profile">
+                        <span class="avatar faculty-av">SM</span>
+                        <span class="name">Ms. S. S. Mathpati</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="content-wrapper">
+            <h1 class="page-heading">Faculty Leave Management</h1>
+
+            <div class="leave-grid">
+                <aside class="history-panel">
+                    <div class="card">
+                        <h3>My Leave History</h3>
+                        <div class="history-list">
+                            <div class="history-item">
+                                <div class="item-main">
+                                    <strong>Casual Leave (1 day)</strong>
+                                    <p>Applied on: 10/02/2026</p>
+                                </div>
+                                <div class="item-side">
+                                    <span class="status approved">APPROVED</span>
+                                    <button class="btn-outline">View Details</button>
+                                </div>
+                            </div>
+                            <div class="history-item">
+                                <div class="item-main">
+                                    <strong>Duty Leave (FSD Workshop)</strong>
+                                    <p>Applied on: 05/01/2026</p>
+                                </div>
+                                <div class="item-side">
+                                    <span class="status approved">APPROVED</span>
+                                    <button class="btn-outline">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" class="view-all-link">View All History →</a>
+                    </div>
+                </aside>
+
+                <section class="form-panel">
+                    <div class="card application-card">
+                        <div class="card-title">
+                            <span class="icon">📜</span>
+                            <h3>Submit Leave to Administrator</h3>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label>From Date</label>
+                                <input type="date" value="2026-02-24">
+                            </div>
+                            <div class="input-group">
+                                <label>To Date</label>
+                                <input type="date" value="2026-02-25">
+                            </div>
+                            <div class="recipient-preview">
+                                <label>Approving Authority</label>
+                                <div class="admin-box">
+                                    <strong>System Administrator</strong>
+                                    <span>(Campus Registry)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-group full-width">
+                            <label>Reason for Leave & Lecture Adjustment</label>
+                            <textarea placeholder="Please mention reasons and adjustment details for PPS/FSD sessions..." rows="8"></textarea>
+                        </div>
+
+                        <div class="upload-section">
+                            <label>Relevant Documents / Invitations</label>
+                            <div class="file-drop-area">
+                                <input type="file" id="file-upload" class="hidden-input">
+                                <label for="file-upload" class="file-btn">
+                                    <!-- <span class="icon">Attach Supporting Document</span> -->
+                                </label>
+                                <!-- <p class="file-hint">PDF or Doc</p> -->
+                            </div>
+                        </div>
+                        <div class="footer-actions">
+                            <a href="facultydashbord.html" class="back-link">Back to Dashboard</a>
+                            <label for="submit-success-toggle" class="btn-submit">Submit to Admin</label>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <input type="checkbox" id="submit-success-toggle" class="pop-toggle">
+    <div class="pop-overlay">
+        <div class="pop-box">
+            <div class="pop-icon">📬</div>
+            <h3>Application Received</h3>
+            <p>Your request has been forwarded to the <strong>Campus Administrator</strong>. You will be notified of the decision shortly.</p>
+            <label for="submit-success-toggle" class="pop-close">Confirm & Close</label>
+        </div>
+    </div>
+
+</body>
+</html>

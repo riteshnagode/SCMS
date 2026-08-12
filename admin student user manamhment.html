@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin - User Management</title>
+    <link rel="stylesheet" href="usermanagement.css">
+</head>
+<body>
+<style>
+   body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #2b5876, #4e4376);
+    color: white;
+}
+
+.container {
+    padding: 30px;
+}
+
+h2 {
+    text-align: center;
+}
+
+.summary {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.card {
+    background: white;
+    color: black;
+    padding: 15px 30px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.add-student, .search-section {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.add-student input,
+.add-student select,
+.search-section input {
+    padding: 8px;
+    margin: 5px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 6px;
+    background: #4e4376;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.table-section {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    color: black;
+}
+
+th {
+    background: #4e4376;
+    color: white;
+    padding: 10px;
+}
+
+td {
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+} 
+.back{
+    margin-left: 40px;
+    margin-top: 40px;
+    color:black;
+    font-size: xx-large;
+    font-weight: bolder;
+}
+</style>
+ <a  style="text-decoration: none;" href="http://127.0.0.1:5500/admindashboard.html"><div class="back">←</div></a>
+
+<div class="container">
+
+    <h2>🎓 Student User Management</h2>
+
+    <!-- Summary Card -->
+    <div class="summary">
+        <div class="card">
+            <h3>Total Students</h3>
+            <p id="totalStudents">10</p>
+        </div>
+    </div>
+
+    <!-- Add Student Section -->
+    <div class="add-student">
+        <h3>Add New Student</h3>
+
+        <input type="text" id="prn" placeholder="PRN Number">
+        <input type="text" id="name" placeholder="Student Name">
+        <input type="text" id="contact" placeholder="Contact Number">
+
+        <select id="division">
+            <option>Division</option>
+            <option>A</option>
+            <option>B</option>
+        </select>
+
+        <select id="class">
+            <option>Class</option>
+            <option>FY</option>
+            <option>SY</option>
+            <option>TY</option>
+        </select>
+
+        <select id="branch">
+            <option>Branch</option>
+            <option>CSE</option>
+            <option>IT</option>
+            <option>ENTC</option>
+            <option>Mechanical</option>
+        </select>
+
+        <button onclick="addStudent()">Add Student</button>
+    </div>
+
+    <!-- Search Section -->
+    <div class="search-section">
+        <input type="text" id="searchPRN" placeholder="Search by PRN">
+        <button onclick="searchStudent()">Search</button>
+    </div>
+
+    <!-- Student Table -->
+    <div class="table-section">
+        <table id="studentTable">
+            <tr>
+                <th>PRN</th>
+                <th>Name</th>
+                <th>Contact</th>
+                <th>Division</th>
+                <th>Class</th>
+                <th>Branch</th>
+                <th>Action</th>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+<script>
+let total = 0;
+
+function addStudent() {
+    let prn = document.getElementById("prn").value;
+    let name = document.getElementById("name").value;
+    let contact = document.getElementById("contact").value;
+    let division = document.getElementById("division").value;
+    let className = document.getElementById("class").value;
+    let branch = document.getElementById("branch").value;
+
+    if(prn === "" || name === "") {
+        alert("Please fill required fields");
+        return;
+    }
+
+    let table = document.getElementById("studentTable");
+    let row = table.insertRow();
+
+    row.innerHTML = `
+        <td>${prn}</td>
+        <td>${name}</td>
+        <td>${contact}</td>
+        <td>${division}</td>
+        <td>${className}</td>
+        <td>${branch}</td>
+        <td>
+            <button onclick="deleteStudent(this)">Delete</button>
+        </td>
+    `;
+
+    total++;
+    document.getElementById("totalStudents").innerText = total;
+
+    document.getElementById("prn").value = "";
+    document.getElementById("name").value = "";
+    document.getElementById("contact").value = "";
+}
+
+function deleteStudent(btn) {
+    if(confirm("Are you sure to delete this student?")) {
+        let row = btn.parentNode.parentNode;
+        row.remove();
+        total--;
+        document.getElementById("totalStudents").innerText = total;
+    }
+}
+
+function searchStudent() {
+    let input = document.getElementById("searchPRN").value.toUpperCase();
+    let table = document.getElementById("studentTable");
+    let rows = table.getElementsByTagName("tr");
+
+    for (let i = 1; i < rows.length; i++) {
+        let prn = rows[i].getElementsByTagName("td")[0];
+        if (prn) {
+            let text = prn.textContent || prn.innerText;
+            rows[i].style.display = text.toUpperCase().indexOf(input) > -1 ? "" : "none";
+        }
+    }
+}
+</script>
+
+</body>
+</html>

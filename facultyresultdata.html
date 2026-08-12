@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SCMS Attendance</title>
+  <link rel="stylesheet" href="facultyattendance.css">
+</head>
+<body>
+    <style>
+        * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f2f2f2;
+}
+
+/* Navbar */
+.navbar {
+  background: #1f3b64;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+/* Container */
+.container {
+  background: white;
+  width: 95%;
+  margin: 15px auto;
+  padding: 15px;
+  border-radius: 6px;
+}
+
+h3 {
+  margin-bottom: 10px;
+}
+
+/* Filters */
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.filters select,
+.filters input {
+  padding: 5px;
+  font-size: 13px;
+}
+
+/* Actions */
+.actions {
+  margin-bottom: 10px;
+}
+
+.actions button {
+  padding: 6px 10px;
+  margin-right: 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Buttons */
+.green {
+  background: #2ecc71;
+  color: white;
+  height: 30px;
+  width: 200px;
+  border-radius: 5px;
+
+
+}
+
+.gray {
+  background: #dddddde4;
+  border-radius: 5px;
+  height: 30px;
+  width: 200px;
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 10px;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 6px;
+  text-align: center;
+  font-size: 13px;
+}
+
+th {
+  background: #f5f5f5;
+ 
+}
+
+/* Footer */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+ 
+}
+
+.footer span {
+  font-size: 13px;
+}
+.popup {
+    position: fixed;
+    top: 350px;
+    right:700px;
+    background-color: #28a745;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    display: none;
+    font-weight: bold;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+    z-index: 1000;
+}
+.present {
+    transform: scale(2);
+    accent-color: green;
+    cursor: pointer;
+}
+
+.absent {
+    transform: scale(2);
+    accent-color: red;
+    cursor: pointer;
+}
+
+
+    </style>
+
+<!-- Top Navbar -->
+<div class="navbar">
+  <div class="left">
+    <strong>SCMS</strong> | Smart campus management system
+  </div>
+  <div class="right">
+    2025-26 | Sem-II | MS.s.s.Mathpati
+  </div>
+</div>
+
+<!-- Main Container -->
+<div class="container">
+
+  <h3>Marks Management</h3>
+
+  <!-- Filters -->
+  <div class="filters">
+    <select><option value="0">Branch
+    </option>
+        <option>CSE</option>
+    <option value="2"> IT</option>
+<option value="3">Mechanical</option>
+<option value="4">ENTC</option>
+<option value="5">ECS</option>
+<option value="6">AIML</option></select>
+   
+    <select><option value="0">Subject</option>
+        <option value="1">Database Management System</option>
+    <option value="2"> Mathematics</option>
+<option value="3"> Python</option>
+<option value="4"> Java
+</option></select>
+    <select>
+        <option value="0">Division </option>
+    <option value="1"> E</option>
+<option value="2">F</option>
+    <option value="3">G</option>
+    <option value="4">H</option>
+    </select>
+    <select>
+  <option value="0">Year</option>
+  <option value="1">First Year</option>
+  <option value="2"> Sceond Year</option>
+  <option value="3"> Third Year</option>
+  <option value="4"> Fourth Year</option>
+</select>
+
+
+    <select>
+<option value="0">Exam</option>
+ <option value="1">ISE-I</option>
+<option value="2">ISE-II</option>
+<option value="3">ISE-III</option>
+<option value="4">ICA</option>
+<option value="5">END-SEM</option>  
+<option value="6">VIVA</option>
+<option value="7">Practical</option>
+<option value="8">Assignment</option>
+</select>
+    <input type="date" value="2026-02-27">
+   <select ><option value="0"> History</option></select>
+    
+ 
+ 
+ </div>
+
+
+   
+
+
+  <!-- Attendance Table -->
+  <table>
+    <thead>
+      <tr>
+        <th>Roll No.</th>
+        <th>PRN No.</th>
+        <th>Student Name</th>
+       <th>Marks</th>
+       
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>01</td><td>250211141</td><td>Rahul Verma</td>
+        <td><input type="text" placeholder="                      01" ></td>
+     
+      </tr>
+      <tr>
+        <td>02</td><td>250211142</td><td>Neha Patil</td>
+        <td><input  type="text" placeholder="                      02" ></td>
+      
+      </tr>
+      <tr>
+        <td>03</td><td>250211143</td><td>Amit Gupta</td>
+        <td><input  type="text" placeholder="                      03" ></td>
+      
+      </tr>
+      <tr>
+        <td>04</td><td>250211144</td><td>Vikram Desai</td>
+        <td><input  type="text" placeholder="                      04" ></td>
+      
+      </tr>
+      <tr>
+        <td>05</td><td>250211145</td><td>Priya Shah</td>
+        <td><input  type="text" placeholder="                      05" ></td>
+       
+      </tr>
+      <tr>
+        <td>06</td><td>250211146</td><td>Rohit Mehta</td>
+        <td><input  type="text" placeholder="                      06" ></td>
+        
+        <tr>
+          <td>07</td><td>250211146</td><td>Pratik dange</td>
+          <td><input  type="text" placeholder="                      07" ></td>
+        
+        </tr>
+           <td>08</td><td>250211141</td><td>Rahul Verma</td>
+        <td><input type="text" placeholder="                      08" ></td>
+        
+      
+      <tr>
+        <td>09</td><td>250211142</td><td>Neha Patil</td>
+        <td><input  type="text" placeholder="                      09" ></td>
+   
+      </tr>
+      <tr>
+        <td>10</td><td>250211143</td><td>Amit Gupta</td>
+        <td><input  type="text" placeholder="                      10" ></td>
+       
+      </tr>
+      <tr>
+        <td>11</td><td>250211144</td><td>Vikram Desai</td>
+        <td><input  type="text" placeholder="                      11" ></td>
+       
+      </tr>
+      <tr>
+        <td>12</td><td>250211145</td><td>Priya Shah</td>
+        <td><input type="text" placeholder="                      12" ></td>
+      
+      </tr>
+      <tr>
+        <td>13</td><td>250211146</td><td>Rohit Mehta</td>
+        <td><input  type="text" placeholder="                      13" ></td>
+       
+        <tr>
+          <td>14</td><td>250211146</td><td>Pratik dange</td>
+          <td><input  type="text" placeholder="                      14" ></td>
+         
+        </tr>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Footer -->
+ 
+  <div class="footer">
+ <a style="text-decoration: none;"  href="http://127.0.0.1:5500/facultydashbord.html"><button class="gray">Back</button></a>
+    <span>Total Students: 64</span>
+
+    <!-- <button id="saveBTN" class="green"> Save Marks</botton>
+      <div id="successPopupp" class="popup">
+  Marks Saved Successfully ✔
+</div>
+
+  </div> -->
+  <!-- Save Marks Button (Your Existing Button) -->
+<button onclick="openPopup()" class="green" class="save-btn">Save Marks</button>
+
+<!-- Popup -->
+<div id="marksPopup" class="popup-overlay">
+    <div class="popup-box">
+        <h2>Marks Saved Successfully ✅</h2>
+        <p>All student marks have been recorded.</p>
+        <button onclick="closePopup()" class="ok-btn">OK</button>
+    </div>
+</div>
+
+<style>
+/* Button Style */
+.save-btn {
+    padding: 10px 20px;
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* Overlay */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Popup Box */
+.popup-box {
+    background: white;
+    padding: 25px;
+    width: 300px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+/* OK Button */
+.ok-btn {
+    margin-top: 15px;
+    padding: 8px 18px;
+    border: none;
+    background-color: #27ae60;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+</style>
+
+<script>
+function openPopup() {
+    document.getElementById("marksPopup").style.display = "flex";
+}
+
+function closePopup() {
+    document.getElementById("marksPopup").style.display = "none";
+}
+</script>
+
+</div>
+
+
+</body>
+</html>

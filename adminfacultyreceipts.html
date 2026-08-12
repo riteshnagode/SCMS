@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Treasury | Admin Panel</title>
+    <link rel="stylesheet" href="admin-finances.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+    --navy: #0e2a53;
+    --blue: #1a73e8;
+    --bg: #f8fafc;
+    --white: #ffffff;
+    --green: #10b981;
+    --red: #ef4444;
+    --orange: #f59e0b;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+body { background: var(--bg); overflow: hidden; }
+
+.admin-wrapper { display: flex; height: 100vh; }
+
+.sidebar { width: 280px; background: var(--navy); color: white; padding: 40px 20px; flex-shrink: 0; }
+.admin-profile { text-align: center; margin-bottom: 40px; }
+.avatar { width: 60px; height: 60px; background: var(--blue); border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+.nav-menu { display: flex; flex-direction: column; gap: 8px; }
+.nav-item { text-decoration: none; color: rgba(255,255,255,0.7); padding: 12px 15px; border-radius: 8px; font-weight: 500; font-size: 0.9rem; }
+.nav-item.active { background: rgba(255,255,255,0.1); color: white; }
+
+.main-content { flex-grow: 1; padding: 40px; overflow-y: auto; }
+.top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px; }
+.top-bar h1 { font-size: 1.8rem; color: var(--navy); }
+.stat-summary { display: flex; gap: 20px; }
+.s-pills { padding: 10px 20px; background: white; border-radius: 50px; border: 1px solid #e2e8f0; font-size: 0.85rem; }
+
+.finance-section { background: var(--white); border-radius: 16px; padding: 30px; margin-bottom: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 1px solid #e2e8f0; }
+.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+
+.btn-pay { background: var(--orange); color: white; padding: 8px 15px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 0.75rem; display: inline-block; }
+.btn-download { background: #f1f5f9; color: var(--navy); border: 1px solid #cbd5e1; padding: 6px 12px; border-radius: 4px; font-weight: 600; cursor: pointer; font-size: 0.75rem; }
+
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; padding: 15px 10px; font-size: 0.75rem; color: #64748b; text-transform: uppercase; border-bottom: 2px solid #f1f5f9; }
+td { padding: 15px 10px; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; color: #334155; }
+
+.badge { padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; }
+.badge.warning { background: #fff7ed; color: #c2410c; }
+.badge.success { background: #f0fdf4; color: #15803d; }
+
+.pop-toggle { display: none; }
+.pop-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(14, 42, 83, 0.6); backdrop-filter: blur(4px); display: none; justify-content: center; align-items: center; z-index: 2000; }
+
+/* Trigger Pop-up when any toggle is checked */
+.pop-toggle:checked ~ .pop-overlay { display: flex; }
+
+.pop-box { background: white; padding: 40px; border-radius: 15px; text-align: center; max-width: 450px; width: 90%; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+.pop-icon { font-size: 50px; margin-bottom: 15px; }
+.pop-actions { display: flex; gap: 15px; margin-top: 30px; justify-content: center; }
+.btn-cancel, .btn-confirm { padding: 10px 20px; border-radius: 6px; font-weight: 700; cursor: pointer; border: none; }
+.btn-cancel { background: #e2e8f0; color: #333; }
+.btn-confirm { background: var(--green); color: white; }
+   
+     .back{
+    margin-left: 40px;
+    margin-top: 40px;
+    color:black;
+    font-size: xx-large;
+    font-weight: bolder;
+}</style>
+</head>
+<body>
+         <a  style="text-decoration: none;" href="http://127.0.0.1:5500/adminfaculty.html"><div class="back">←</div></a>
+
+
+    <!-- <div class="admin-wrapper">
+        <aside class="sidebar">
+            <div class="admin-profile">
+                <div class="avatar">AD</div>
+                <h3>System Admin</h3>
+                <p>WIT Solapur</p>
+            </div>
+            <nav class="nav-menu">
+                <a href="admin-dashboard.html" class="nav-item">📊 Dashboard</a>
+                <a href="#" class="nav-item active">💰 Treasury & Bills</a>
+                <a href="event-approvals.html" class="nav-item">📅 Event Approvals</a>
+                <a href="index.html" class="nav-item logout">⏻ Logout</a>
+            </nav>
+        </aside> -->
+
+        <main class="main-content">
+            <header class="top-bar">
+                <h1>Financial Management</h1>
+                <div class="stat-summary">
+                    <div class="s-pills">Monthly Outflow: <strong>₹18.4L</strong></div>
+                    <div class="s-pills">Monthly Inflow: <strong>₹85.2L</strong></div>
+                </div>
+            </header>
+
+            <section class="finance-section">
+                <div class="section-header">
+                    <h3>🏢 Institutional Utility Invoices (Outbound)</h3>
+                    <button class="btn-add">+ Add New Bill</button>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Vendor/Service</th>
+                                <th>Bill Date</th>
+                                <th>Due Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>MSEB Electricity (Campus-Wide)</td>
+                                <td>20 Feb 2026</td>
+                                <td>05 Mar 2026</td>
+                                <td>₹4,50,000</td>
+                                <td><span class="badge warning">Pending</span></td>
+                                <td><label for="pay-bill-1" class="btn-pay">Pay Bill</label></td>
+                            </tr>
+                            <tr>
+                                <td>Campus Security Services (Q1)</td>
+                                <td>22 Feb 2026</td>
+                                <td>15 Mar 2026</td>
+                                <td>₹2,10,000</td>
+                                <td><span class="badge warning">Pending</span></td>
+                                <td><label for="pay-bill-2" class="btn-pay">Pay Bill</label></td>
+                            </tr>
+                            <tr>
+                                <td>Cloud Server Hosting (FSD Lab)</td>
+                                <td>24 Feb 2026</td>
+                                <td>10 Mar 2026</td>
+                                <td>₹75,000</td>
+                                <td><span class="badge warning">Pending</span></td>
+                                <td><label for="pay-bill-3" class="btn-pay">Pay Bill</label></td>
+                            </tr>
+                            <tr>
+                                <td>IEEE/e-Library Subscriptions</td>
+                                <td>25 Feb 2026</td>
+                                <td>12 Mar 2026</td>
+                                <td>₹2,85,000</td>
+                                <td><span class="badge warning">Pending</span></td>
+                                <td><label for="pay-bill-4" class="btn-pay">Pay Bill</label></td>
+                            </tr>
+                            <tr>
+                                <td>Solar Grid Maintenance (Term-II)</td>
+                                <td>26 Feb 2026</td>
+                                <td>20 Mar 2026</td>
+                                <td>₹38,500</td>
+                                <td><span class="badge warning">Pending</span></td>
+                                <td><label for="pay-bill-5" class="btn-pay">Pay Bill</label></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- <section class="finance-section">
+                <div class="section-header">
+                    <h3>🎓 Student Fee Receipts (Inbound)</h3>
+                    <div class="search-box">
+                        <input type="text" placeholder="Search PRN (e.g. 2502111068)...">
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>PRN</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Receipt</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Ritesh T. Nagode</td>
+                                <td>2502111068</td>
+                                <td>15 Feb 2026</td>
+                                <td>₹85,000</td>
+                                <td><button class="btn-download">PDF</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section> -->
+        </main>
+    </div>
+
+    <input type="checkbox" id="pay-bill-1" class="pop-toggle">
+    <input type="checkbox" id="pay-bill-2" class="pop-toggle">
+    <input type="checkbox" id="pay-bill-3" class="pop-toggle">
+    <input type="checkbox" id="pay-bill-4" class="pop-toggle">
+    <input type="checkbox" id="pay-bill-5" class="pop-toggle">
+
+    <div class="pop-overlay">
+        <div class="pop-box">
+            <div class="pop-icon">🏦</div>
+            <h3>Authorize Payment</h3>
+            <p>Are you sure you want to release the funds for this institutional utility?</p>
+            <div class="pop-actions">
+                <button class="btn-cancel" onclick="location.reload()">Cancel</button>
+                <button class="btn-confirm" onclick="alert('Transaction Successful!')">Confirm Payment</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

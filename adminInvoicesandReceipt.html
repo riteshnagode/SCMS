@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SCMS - Admin Invoices</title>
+    <link rel="stylesheet" href="admin-invoice.css">
+</head>
+<body>
+
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #F3F4F6;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+h1 {
+    text-align: center;
+    color: #1E3A8A;
+}
+
+/* Cards */
+.cards {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.card {
+    flex: 1;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 8px;
+    background: #1E3A8A;
+    color: white;
+    text-align: center;
+}
+
+.card.paid {
+    background: #10B981;
+}
+
+.card.pending {
+    background: #F59E0B;
+}
+
+.card.overdue {
+    background: #EF4444;
+}
+
+/* Search Section */
+.search-section {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.search-section input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-section button {
+    padding: 10px 15px;
+    border: none;
+    background: #1E3A8A;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.download-btn {
+    background: #10B981;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th {
+    background: #1E3A8A;
+    color: white;
+    padding: 12px;
+}
+
+table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.paid-text {
+    color: #10B981;
+    font-weight: bold;
+}
+
+.pending-text {
+    color: #F59E0B;
+    font-weight: bold;
+}
+
+.view-btn {
+    background: #10B981;
+    color: white;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+}
+
+.reminder-btn {
+    background: #EF4444;
+    color: white;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+}
+    </style>
+<div class="container">
+
+    <h1>Invoices & Receipts - Admin Panel</h1>
+
+    <!-- Summary Cards -->
+    <div class="cards">
+        <div class="card">
+            <h3>Total Invoices</h3>
+            <p>120</p>
+        </div>
+
+        <div class="card paid">
+            <h3>Paid</h3>
+            <p>80</p>
+        </div>
+
+        <div class="card pending">
+            <h3>Pending</h3>
+            <p>30</p>
+        </div>
+
+        <div class="card overdue">
+            <h3>Overdue</h3>
+            <p>10</p>
+        </div>
+    </div>
+
+    <!-- Search Section -->
+    <div class="search-section">
+        <input type="text" placeholder="Search by Roll No or Name">
+        <button>Search</button>
+        <button class="download-btn">Download Report</button>
+    </div>
+
+    <!-- Invoice Table -->
+    <table>
+        <thead>
+            <tr>
+                <th>Invoice ID</th>
+                <th>Student Name</th>
+                <th>Roll No</th>
+                <th>Course</th>
+                <th>Amount</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>INV101</td>
+                <td>Rahul Sharma</td>
+                <td>23CS101</td>
+                <td>CSE</td>
+                <td>₹25,000</td>
+                <td>10 Feb 2026</td>
+                <td class="paid-text">Paid</td>
+                <td><button class="view-btn">View</button></td>
+            </tr>
+
+            <tr>
+                <td>INV102</td>
+                <td>Sneha Patil</td>
+                <td>23IT205</td>
+                <td>IT</td>
+                <td>₹30,000</td>
+                <td>15 Feb 2026</td>
+                <td class="pending-text">Pending</td>
+                <td><button class="reminder-btn">Send Reminder</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>

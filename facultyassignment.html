@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Assignment Portal</title>
+    <link rel="stylesheet" href="facultyassignment.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: #f4f7f9;
+    padding: 30px;
+    color: #333;
+}
+
+.dashboard-container {
+    max-width: 1300px; /* Slightly tighter for better focus */
+    margin: 0 auto;
+    background: #fff;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+}
+
+/* Header */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.main-header h1 { font-size: 1.4rem; font-weight: 700; color: #0e2a53; }
+.back-link { text-decoration: none; color: #1a73e8; font-weight: 600; font-size: 0.9rem; }
+
+/* Compact Stats Bar */
+.stats-bar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.stat-box {
+    flex: 1;
+    padding: 12px;
+    text-align: center;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+}
+
+.blue { background: #e8f0fe; color: #1a73e8; }
+.yellow { background: #fff9db; color: #f59f00; }
+.green { background: #ebfbee; color: #2f9e44; }
+.red { background: #fff5f5; color: #e03131; }
+
+/* Layout */
+.main-content { display: flex; gap: 25px; }
+.assignments-list { flex: 2.5; }
+.sidebar { flex: 1; }
+.section-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; color: #444; }
+
+/* Refined Cards */
+.assignment-card {
+    border: 1px solid #edf2f7;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 15px;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.assignment-card:hover {
+    border-color: #cbd5e0;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.index-box { background: #0e2a53; color: white; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; }
+.index-box.orange { background: #f76707; }
+.card-header h3 { font-size: 1.05rem; flex: 1; font-weight: 600; }
+
+.badge { font-size: 0.7rem; padding: 4px 10px; border-radius: 50px; font-weight: 700; }
+.pending { background: #fff9db; color: #f08c00; }
+.reviewed { background: #ebfbee; color: #37b24d; }
+
+.card-details p { font-size: 0.85rem; color: #666; margin-bottom: 6px; }
+.card-actions { display: flex; gap: 10px; margin-top: 15px; }
+
+.btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-view { background: #1a73e8; color: white; }
+.btn-edit { background: #f1f3f5; color: #495057; }
+.btn-remind { background: #fff5f5; color: #fa5252; }
+
+/* Sidebar Styling */
+.sidebar-section {
+    background: #f8fafc;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #edf2f7;
+}
+
+.sidebar-section h4 { font-size: 0.9rem; margin-bottom: 15px; color: #0e2a53; }
+
+.create-section input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.85rem;
+}
+
+.file-label {
+    display: block;
+    padding: 10px;
+    border: 2px dashed #cbd5e0;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #718096;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+.btn-create {
+    display: block;
+    width: 100%;
+    background: #0e2a53;
+    color: white;
+    padding: 12px;
+    text-align: center;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+/* Popup Logic */
+.hidden-check { display: none; }
+.success-popup {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(14, 42, 83, 0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+.hidden-check:checked ~ .success-popup { display: flex; }
+.popup-box {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    text-align: center;
+    max-width: 320px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+.check-icon { font-size: 40px; color: #37b24d; margin-bottom: 10px; }
+.close-popup {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 8px 20px;
+    background: #0e2a53;
+    color: white;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+  .back{
+     
+  position: absolute;
+  top: 60px;
+  left: 60px;
+  font-size: 22px;
+  cursor: pointer;
+  height: 30px;
+  width: 60px;
+  background: #e6e6e6cf;
+  color: black;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+    </style>
+   <a style="text-decoration: none;" href="http://127.0.0.1:5500/facultydashbord.html"> <div class="back">Back</div></a>
+    <div class="dashboard-container">
+        <header class="main-header">
+            <h1>Assignment Management</h1>
+            
+        </header>
+
+        <div class="stats-bar">
+            <div class="stat-box blue">Total: 8</div>
+            <div class="stat-box yellow">Pending: 12</div>
+            <div class="stat-box green">Reviewed: 20</div>
+            <div class="stat-box red">Late: 3</div>
+        </div>
+
+        <div class="main-content">
+            <section class="assignments-list">
+                <div class="section-title">Active Assignments</div>
+                
+                <div class="assignment-card">
+                    <div class="card-header">
+                        <span class="index-box">01</span>
+                        <h3>Data Structures - Arrays</h3>
+                        <span class="badge pending">Pending</span>
+                    </div>
+                    <div class="card-details">
+                        <p><strong>Subject:</strong> Data structures | <strong>Sem:</strong> 4th CSE</p>
+                        <p><strong>Timeline:</strong> 05 Feb - 12 Feb 2026</p>
+                        <p><strong>Progress:</strong> 24 / 30 Students Submitted</p>
+                    </div>
+                    <div class="card-actions">
+                        <button class="btn btn-view">View</button>
+                        <button class="btn btn-edit">Edit</button>
+                        <button class="btn btn-remind">Remind</button>
+                    </div>
+                </div>
+
+                <div class="assignment-card">
+                    <div class="card-header">
+                        <span class="index-box orange">02</span>
+                        <h3>Digital Electronics - Logic Gates</h3>
+                        <span class="badge reviewed">Reviewed</span>
+                    </div>
+                    <div class="card-details">
+                        <p><strong>Subject:</strong> Digital Electronics | <strong>Sem:</strong> 3rd ECE</p>
+                        <p><strong>Timeline:</strong> 02 Feb - 10 Feb 2026</p>
+                        <p><strong>Progress:</strong> 25 / 25 Students Submitted</p>
+                    </div>
+                    <div class="card-actions">
+                        <button class="btn btn-view">View</button>
+                        <button class="btn btn-edit">Edit</button>
+                        <button class="btn btn-remind">Remind</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- <aside class="sidebar">
+                <div class="sidebar-section">
+                    <h4>Quick Stats</h4>
+                    <div class="analytics-row">
+                        <span>Graded: <strong class="text-orange">20</strong></span>
+                        <span>Late: <strong class="text-red">3</strong></span>
+                    </div>
+                </div> -->
+
+                <div class="sidebar-section create-section">
+                    <h4>New Assignment</h4>
+                    <input type="text" placeholder="Assignment Title">
+                    <input type="text" placeholder="Due Date (DD/MM/YYYY)">
+                    <input type="text" placeholder="Select Course/Branch">
+                    
+                    <div class="file-upload-wrapper">
+                        <input type="file" id="file-attach" class="hidden-file-input">
+                        <!-- <label for="file-attach" class="file-label">
+                            📎 Attach PDF/Image
+                        </label> -->
+                    </div>
+
+                    <input type="checkbox" id="success-toggle" class="hidden-check">
+                    <label for="success-toggle" class="btn-create">Publish Assignment</label>
+
+                    <div class="success-popup">
+                        <div class="popup-box">
+                            <div class="check-icon">✓</div>
+                            <h3>Published!</h3>
+                            <p>Assignment is now live for the selected class.</p>
+                            <label for="success-toggle" class="close-popup">Done</label>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+</body>
+</html>

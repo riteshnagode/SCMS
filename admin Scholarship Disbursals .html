@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scholarship Disbursals - Admin</title>
+    <link rel="stylesheet" href="scholarship.css">
+</head>
+<body>
+
+    <style>
+        body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+}
+
+.container {
+    padding: 30px;
+    color: white;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.filters {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.filters select,
+.filters input {
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.search-btn {
+    padding: 8px 15px;
+    background: #2a5298;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.search-btn:hover {
+    background: #1e3c72;
+}
+
+.table-section {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #2a5298;
+    color: white;
+    padding: 12px;
+}
+
+td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    color: black;
+}
+
+tr:hover {
+    background: #f2f2f2;
+}
+
+.approved {
+    background: #2ecc71;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+.pending {
+    background: #e74c3c;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+.contact-btn {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.contact-btn:hover {
+    background: #2980b9;
+}
+.back{
+    margin-left: 40px;
+    margin-top: 40px;
+    color:black;
+    font-size: xx-large;
+    font-weight: bolder;
+}
+    </style>
+ <a  style="text-decoration: none;" href="http://127.0.0.1:5500/admindashboard.html"><div class="back">←</div></a>
+<div class="container">
+
+    <h2>🎓 Scholarship Disbursals - Admin Panel</h2>
+
+    <!-- Filter Section -->
+    <div class="filters">
+        <select>
+            <option>Division</option>
+            <option>A</option>
+            <option>B</option>
+        </select>
+
+        <select>
+            <option>Class</option>
+            <option>FY</option>
+            <option>SY</option>
+            <option>TY</option>
+        </select>
+
+        <select>
+            <option>Year</option>
+            <option>2023</option>
+            <option>2024</option>
+        </select>
+
+        <select>
+            <option>Branch</option>
+            <option>CSE</option>
+            <option>IT</option>
+            <option>ENTC</option>
+            <option>Mechanical</option>
+        </select>
+
+        <input type="text" placeholder="🔍 Search by PRN or Name">
+        <button class="search-btn">Search</button>
+    </div>
+
+    <!-- Table -->
+    <div class="table-section">
+        <table>
+            <tr>
+                <th>PRN No</th>
+                <th>Student Name</th>
+                <th>Contact</th>
+                <th>Branch</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+
+            <tr><td>2023CSE001</td><td>Amit Patil</td><td>9876543210</td><td>CSE</td><td><span class="approved">Approved</span></td><td><button class="contact-btn">Contact</button></td></tr>
+            <tr><td>2023IT002</td><td>Priya Sharma</td><td>9123456780</td><td>IT</td><td><span class="pending">Not Approved</span></td><td><button class="contact-btn">Contact</button></td></tr>
+            <tr><td>2023ENTC003</td><td>Rahul Deshmukh</td><td>9988776655</td><td>ENTC</td><td><span class="approved">Approved</span></td><td><button class="contact-btn">Contact</button></td></tr>
+            <tr><td>2023MECH004</td><td>Sneha Kulkarni</td><td>9871234567</td><td>Mechanical</td><td><span class="pending">Not Approved</span></td><td><button class="contact-btn">Contact</button></td></tr>
+            <tr><td>2023CSE005</td><td>Vikram Joshi</td><td>9012345678</td><td>CSE</td><td><span class="approved">Approved</span></td><td><button class="contact-btn">Contact</button></td></tr>
+            <tr><td>2023IT006</td><td>Neha Patil</td><td>9090909090</td><td>IT</td><td><span class="pending">Not Approved</span></td><td><button class="contact-btn">Contact</button></td></tr>
+            <tr><td>2023ENTC007</td><td>Rohit Shinde</td><td>8899776655</td><td>ENTC</td><td><span class="approved">Approved</span></td><td><button class="contact-btn">Contact</button></td></tr>
+            <tr><td>2023MECH008</td><td>Pooja Jadhav</td><td>9345678123</td><td>Mechanical</td><td><span class="pending">Not Approved</span></td><td><button class="contact-btn">Contact</button></td></tr>
+            <tr><td>2023CSE009</td><td>Aditya More</td><td>9765432109</td><td>CSE</td><td><span class="approved">Approved</span></td><td><button class="contact-btn">Contact</button></td></tr>
+            <tr><td>2023IT010</td><td>Tanvi Shah</td><td>9870001111</td><td>IT</td><td><span class="pending">Not Approved</span></td><td><button class="contact-btn">Contact</button></td></tr>
+            <tr><td>2023ENTC011</td><td>Harsh Kale</td><td>9988007766</td><td>ENTC</td><td><span class="approved">Approved</span></td><td><button class="contact-btn">Contact</button></td></tr>
+            <tr><td>2023MECH012</td><td>Anjali Pawar</td><td>9222333444</td><td>Mechanical</td><td><span class="pending">Not Approved</span></td><td><button class="contact-btn">Contact</button></td></tr>
+            <tr><td>2023CSE013</td><td>Karan Salunkhe</td><td>9333444555</td><td>CSE</td><td><span class="approved">Approved</span></td><td><button class="contact-btn">Contact</button></td></tr>
+            <tr><td>2023IT014</td><td>Simran Kaur</td><td>9555666777</td><td>IT</td><td><span class="pending">Not Approved</span></td><td><button class="contact-btn">Contact</button></td></tr>
+            <tr><td>2023ENTC015</td><td>Manish Gupta</td><td>9777888999</td><td>ENTC</td><td><span class="approved">Approved</span></td><td><button class="contact-btn">Contact</button></td></tr>
+
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>

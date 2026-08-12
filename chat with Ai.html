@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Student Analyzer - SCMS</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f4f6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            margin: 30px auto;
+        }
+
+        h2 {
+            color: #1E3A8A;
+        }
+
+        .search-box {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 8px 0 0 8px;
+            border: 1px solid #ccc;
+        }
+
+        .search-box button {
+            padding: 12px 20px;
+            background: #0F766E;
+            color: white;
+            border: none;
+            border-radius: 0 8px 8px 0;
+            cursor: pointer;
+        }
+
+        .result-box {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        canvas {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>🤖 AI Student Performance Analyzer</h2>
+
+    <div class="search-box">
+        <input type="text" id="query" placeholder="Ask something like 'attendance report of this week'">
+        <button onclick="analyzeQuery()">Search</button>
+    </div>
+
+    <div class="result-box" id="textResult">
+        AI response will appear here...
+    </div>
+
+    <canvas id="myChart"></canvas>
+</div>
+
+<script>
+
+let chart; 
+
+function analyzeQuery() {
+
+    let query = document.getElementById("query").value.toLowerCase();
+    let textResult = document.getElementById("textResult");
+    let ctx = document.getElementById("myChart").getContext("2d");
+
+    if(chart) {
+        chart.destroy();
+    }
+
+    // Attendance Query
+    if(query.includes("attendance")) {
+
+        textResult.innerHTML = `
+            <b>Weekly Attendance Report of G division:</b><br>
+            Average Attendance: 82%<br>
+            Students below 75%: 3<br>
+            Highest Attendance: Rahul (100%)
+        `;
+
+        chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Mon','Tue','Wed','Thu','Fri'],
+                datasets: [{
+                    label: 'Attendance %',
+                    data: [85, 80, 78, 90, 88],
+                    borderWidth: 2,
+                    fill: false
+                }]
+            }
+        });
+
+    }
+
+    // Subject Wise Marks Query
+    else if(query.includes("subject") || query.includes("marks")) {
+
+        textResult.innerHTML = `
+            <b>Subject Wise Marks Report:</b><br>
+            Maths: 78<br>
+            Physics: 65<br>
+            Chemistry: 72<br>
+            Weak Subject: Physics
+        `;
+
+        chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Maths','Physics','Chemistry'],
+                datasets: [{
+                    label: 'Marks',
+                    data: [78,65,72],
+                    borderWidth: 1
+                }]
+            }
+        });
+
+    }
+
+    else {
+        textResult.innerHTML = "Query not recognized. Try attendance or subject wise marks.";
+    }
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Academic Journey Report - Ritesh Nagode</title>
+    <link rel="stylesheet" href="aireport.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <style>
+        :root {
+    --ai-purple: #6c5ce7;
+    --ai-blue: #0984e3;
+    --dark-navy: #0f2f5a;
+    --glass: rgba(255, 255, 255, 0.98);
+}
+
+* { box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #0f2f5a 0%, #183a6b 100%);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px;
+}
+
+/* Enlarged Container */
+.report-wrapper {
+    width: 100%;
+    max-width: 1400px;
+    background: var(--glass);
+    border-radius: 24px;
+    padding: 60px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+    position: relative;
+}
+
+.report-header {
+    text-align: center;
+    margin-bottom: 50px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 30px;
+}
+
+.ai-badge {
+    background: var(--ai-purple);
+    color: white;
+    display: inline-block;
+    padding: 6px 18px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    margin-bottom: 15px;
+}
+
+.report-header h1 { font-size: 3rem; color: var(--dark-navy); margin: 10px 0; }
+.back-btn { position: absolute; top: 60px; left: 60px; text-decoration: none; color: var(--dark-navy); font-weight: 700; }
+
+/* Insight Grid */
+.report-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.insight-card {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid #f0f0f0;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+}
+
+.insight-card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+.card-icon { font-size: 3rem; margin-bottom: 20px; }
+.insight-card h3 { margin-bottom: 12px; font-size: 1.4rem; color: var(--dark-navy); }
+.insight-card p { line-height: 1.7; color: #444; font-size: 1.15rem; }
+
+/* Highlight Colors */
+.highlight-green { border-top: 10px solid #2ecc71; }
+.highlight-blue { border-top: 10px solid #3498db; }
+.highlight-red { border-top: 10px solid #e74c3c; }
+.highlight-purple { border-top: 10px solid var(--ai-purple); }
+
+/* Visual Journey Section */
+.journey-visual {
+    background: #fcfcfc;
+    padding: 50px;
+    border-radius: 20px;
+    text-align: center;
+    border: 1px solid #eee;
+}
+
+.performance-bar {
+    width: 100%;
+    height: 40px;
+    background: #e9ecef;
+    border-radius: 50px;
+    margin: 30px 0;
+    overflow: hidden;
+}
+
+.performance-bar .fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--ai-blue), var(--ai-purple));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.summary-text { font-style: italic; font-size: 1.3rem; color: #666; max-width: 900px; margin: 0 auto; }
+
+/* Download Button Footer */
+.report-footer { margin-top: 60px; display: flex; justify-content: center; }
+
+.download-btn {
+    background: var(--dark-navy);
+    color: white;
+    padding: 20px 50px;
+    border-radius: 15px;
+    font-weight: 700;
+    font-size: 1.3rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: 0.3s;
+}
+
+.download-btn:hover { background: var(--ai-purple); transform: scale(1.05); }
+
+/* --- NO-JS POPUP LOGIC --- */
+.logic-checkbox { display: none; }
+
+.download-popup {
+    position: fixed;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    display: none;
+}
+
+#download-trigger:checked ~ .download-popup {
+    display: block;
+    animation: popupFade 2.5s forwards;
+}
+
+.popup-content {
+    background: #1e8e3e;
+    color: white;
+    padding: 20px 40px;
+    border-radius: 60px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    font-weight: 700;
+}
+
+.spinner {
+    width: 25px; height: 25px;
+    border: 4px solid rgba(255,255,255,0.3);
+    border-top: 4px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@keyframes popupFade {
+    0% { opacity: 0; transform: translate(-50%, -30px); }
+    15% { opacity: 1; transform: translate(-50%, 0); }
+    85% { opacity: 1; transform: translate(-50%, 0); }
+    100% { opacity: 0; transform: translate(-50%, -30px); display: none; }
+}
+    </style>
+
+    <div class="report-wrapper">
+        <header class="report-header">
+            <a href="studentdashbord.html" class="back-btn">← Back to Dashboard</a>
+            <div class="ai-badge">AI GENERATED INSIGHTS</div>
+            <h1>Academic Journey Report</h1>
+            <p>Student: <strong>NAGODE RITESH TANAJI</strong> | PRN: <strong>2502111068</strong></p>
+        </header>
+
+        <div class="report-grid">
+            <div class="insight-card highlight-green">
+                <div class="card-icon">🚀</div>
+                <h3>Technical Mastery</h3>
+                <p>Based on your <strong>9.82 SGPA</strong>, you show exceptional skill in <strong>Engineering Mathematics-I</strong>, scoring a near-perfect <strong>97/100</strong>.</p>
+            </div>
+
+            <div class="insight-card highlight-blue">
+                <div class="card-icon">📊</div>
+                <h3>Consistency Driver</h3>
+                <p>Your <strong>90.9% Attendance</strong> in Chemistry directly resulted in an <strong>'O' Grade</strong>. High attendance is clearly your path to success.</p>
+            </div>
+
+            <div class="insight-card highlight-red">
+                <div class="card-icon">⚠️</div>
+                <h3>Attendance Risk</h3>
+                <p>Your English attendance is at <strong>52.3% (DANGER)</strong>. Despite passing, you must increase this to avoid term-grant issues.</p>
+            </div>
+
+            <div class="insight-card highlight-purple">
+                <div class="card-icon">🧠</div>
+                <h3>Future Projection</h3>
+                <p>With an <strong>88.77% overall average</strong>, you are currently in the <strong>Top 5%</strong> of your batch. Maintain this to secure placement eligibility.</p>
+            </div>
+        </div>
+
+        <section class="journey-visual">
+            <h3>Overall Academic Efficiency</h3>
+            <div class="performance-bar">
+                <div class="fill" style="width: 88.77%;">88.77% Score</div>
+            </div>
+            <p class="summary-text">"Ritesh, your profile indicates a 'High-Performance Learner' with a strong analytical foundation in Computer Science."</p>
+        </section>
+
+        <footer class="report-footer">
+            <label for="download-trigger" class="download-btn">
+                <span>📥</span> Download Full AI Report (PDF)
+            </label>
+        </footer>
+    </div>
+
+    <input type="checkbox" id="download-trigger" class="logic-checkbox">
+    <div class="download-popup">
+        <div class="popup-content">
+            <div class="spinner"></div>
+            <p>Report downloaded successfully!</p>
+        </div>
+    </div>
+
+</body>
+</html>

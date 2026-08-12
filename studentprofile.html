@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile | Ritesh Nagode</title>
+    <link rel="stylesheet" href="profile.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+     <style>
+        :root {
+    --navy: #0e2a53;
+    --blue: #1a73e8;
+    --light-bg: #f8fafc;
+    --border: #e2e8f0;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--light-bg);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px;
+}
+
+.profile-container {
+    display: flex;
+    width: 100%;
+    max-width: 1300px;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+}
+
+/* Sidebar Styling */
+.profile-sidebar {
+    width: 350px;
+    background: var(--navy);
+    color: white;
+    padding: 50px 30px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.photo-box {
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    border: 5px solid rgba(255,255,255,0.1);
+    margin: 0 auto 20px;
+    overflow: hidden;
+}
+
+.photo-box img { width: 100%; height: 100%; object-fit: cover; }
+.profile-sidebar h2 { font-size: 1.5rem; margin-bottom: 5px; }
+.prn-tag { opacity: 0.7; font-size: 0.9rem; margin-bottom: 30px; }
+
+.quick-stats {
+    display: flex;
+    justify-content: space-around;
+    background: rgba(255,255,255,0.05);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 40px;
+}
+
+.stat span { display: block; font-size: 0.75rem; opacity: 0.7; }
+.stat strong { font-size: 1.4rem; }
+
+.profile-nav { display: flex; flex-direction: column; gap: 10px; }
+.nav-link {
+    text-decoration: none; color: white; padding: 12px;
+    border-radius: 8px; transition: 0.3s; font-weight: 500; cursor: pointer;
+}
+.nav-link:hover { background: rgba(255,255,255,0.1); }
+.logout { color: #ff8a80; }
+
+/* Settings Sidebar Logic */
+.logic-checkbox { display: none; }
+
+.settings-overlay {
+    position: fixed; top: 0; right: -100%; width: 100%; height: 100%;
+    background: rgba(14, 42, 83, 0.4); backdrop-filter: blur(4px);
+    z-index: 2000; transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex; justify-content: flex-end;
+}
+
+#settings-toggle:checked ~ .settings-overlay { right: 0; }
+
+.settings-panel {
+    width: 450px; height: 100%; background: white;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.1); padding: 40px;
+    display: flex; flex-direction: column;
+}
+
+.panel-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 15px; margin-bottom: 20px;}
+.close-x { font-size: 2rem; cursor: pointer; color: var(--navy); }
+
+/* Settings Sections */
+.settings-body { overflow-y: auto; padding-right: 10px; flex: 1; }
+.settings-section { margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #f0f0f0; }
+.settings-section h4 { font-size: 0.85rem; color: var(--navy); margin-bottom: 15px; text-transform: uppercase; }
+
+/* Password Inputs */
+.input-group-small { margin-bottom: 10px; }
+.input-group-small label { display: block; font-size: 0.75rem; color: #64748b; margin-bottom: 4px; }
+.input-group-small input { width: 100%; padding: 8px 12px; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.9rem; }
+.btn-update { width: 100%; padding: 10px; background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.8rem; margin-top: 5px; }
+
+/* Toggle Switches */
+.setting-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.setting-row span { font-size: 0.95rem; font-weight: 500; }
+.s-info p { font-size: 0.75rem; color: #64748b; margin-top: 2px; }
+
+.switch { position: relative; display: inline-block; width: 40px; height: 20px; }
+.switch input { display: none; }
+.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #cbd5e1; transition: .4s; border-radius: 20px; }
+.slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+input:checked + .slider { background-color: var(--blue); }
+input:checked + .slider:before { transform: translateX(20px); }
+
+/* Theme Dots */
+.theme-dots { display: flex; gap: 10px; }
+.dot { width: 22px; height: 22px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; }
+.dot.active { border-color: var(--blue); }
+.dot.navy { background: #0e2a53; }
+.dot.forest { background: #1b4d3e; }
+.dot.charcoal { background: #2d3436; }
+
+/* Institutional Controls */
+.restricted { background: #f8fafc; padding: 15px; border-radius: 10px; border: 1px solid #e2e8f0; }
+.lock-icon { font-size: 1rem; opacity: 0.5; }
+
+/* Main Content Area */
+.profile-content { flex: 1; padding: 60px; position: relative; }
+.content-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+.content-header h1 { font-size: 1.8rem; color: var(--navy); }
+.edit-btn { padding: 10px 20px; background: var(--light-bg); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; font-weight: 600; }
+
+.info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-bottom: 50px; }
+.info-group label { display: block; font-size: 0.8rem; color: #64748b; font-weight: 700; margin-bottom: 5px; text-transform: uppercase; }
+.info-group p { font-size: 1.1rem; font-weight: 600; color: #1e293b; }
+
+.summary-cards { display: flex; gap: 20px; }
+.s-card { flex: 1; padding: 20px; background: var(--light-bg); border-radius: 12px; border: 1px solid var(--border); }
+.s-card label { font-size: 0.75rem; color: #64748b; font-weight: 600; }
+.s-card p { font-size: 1.2rem; font-weight: 700; color: var(--navy); }
+.status-pass { color: #10b981 !important; }
+
+.save-btn { display: block; width: 100%; background: var(--navy); color: white; text-align: center; padding: 15px; border-radius: 10px; font-weight: 700; cursor: pointer; margin-top: 10px; }
+         .back{
+     
+  position: absolute;
+  top: 60px;
+  left: 60px;
+  font-size: 22px;
+  cursor: pointer;
+  height: 30px;
+  width: 60px;
+  background: #e6e6e6cf;
+  color: black;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}   
+     </style>
+      <a style="text-decoration: none;" href="http://127.0.0.1:5500/studentdashbord.html"> <div class="back">Back</div></a>
+
+
+    <div class="profile-container">
+        <aside class="profile-sidebar">
+            <div class="photo-box">
+                <img src="https://imgs.search.brave.com/cibEZtxlJ557nPDRrlJHs4-gHx8SywSTya6BnWaW84Y/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJzLmNvbS9p/bWFnZXMvaGQvY3V0/ZS10aWt0b2stcHJv/ZmlsZS1waWN0dXJl/cy0xbGU0bzVyejlv/ZXA2ZWt5LmpwZw" alt="Student Photo">
+            </div>
+            <h2>Ritesh Tanaji Nagode</h2>
+            <p class="prn-tag">PRN: 2502111068</p>
+            
+            <div class="quick-stats">
+                <div class="stat">
+                    <span>SGPA</span>
+                    <strong>9.82</strong>
+                </div>
+                <div class="stat">
+                    <span>Rank</span>
+                    <strong>Top 5%</strong>
+                </div>
+            </div>
+
+            <nav class="profile-nav">
+                <a style="text-decoration: none;" href="studentdashbord.html" class="nav-link">Dashboard</a>
+                <a style="text-decoration: none;" href="http://127.0.0.1:5500/studentaireport.html" class="nav-link">AI Report</a>
+                <label for="settings-toggle" class="nav-link settings-trigger">Settings</label>
+                <a style="text-decoration: none;" href="http://127.0.0.1:5500/studentlogin.html" class="nav-link logout">Logout</a>
+            </nav>
+        </aside>
+
+        <main class="profile-content">
+            <input type="checkbox" id="settings-toggle" class="logic-checkbox">
+            
+            <div class="settings-overlay">
+                <div class="settings-panel">
+                    <header class="panel-header">
+                        <h3>System Settings</h3>
+                        <label for="settings-toggle" class="close-x">&times;</label>
+                    </header>
+                    
+                    <div class="settings-body">
+                        <div class="settings-section">
+                            <h4>🔐 Account Security</h4>
+                            <div class="input-group-small">
+                                <label>Current Password</label>
+                                <input type="password" placeholder="••••••••">
+                            </div>
+                            <div class="input-group-small">
+                                <label>New Password</label>
+                                <input type="password" placeholder="Enter new password">
+                            </div>
+                            <button class="btn-update">Update Password</button>
+                        </div>
+
+                        <div class="settings-section">
+                            <h4>🎨 Appearance</h4>
+                            <div class="setting-row">
+                                <span>Dark Mode</span>
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="setting-row">
+                                <span>Sidebar Theme</span>
+                                <div class="theme-dots">
+                                    <span class="dot navy active" title="Classic Navy"></span>
+                                    <span class="dot forest" title="Forest Green"></span>
+                                    <span class="dot charcoal" title="Sleek Grey"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <h4>🔔 Sound Preferences</h4>
+                            <div class="setting-row">
+                                <span>Notification Sound</span>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="settings-section restricted">
+                            <h4>🏛️ Institutional Controls (Locked)</h4>
+                            <div class="setting-row">
+                                <div class="s-info">
+                                    <span>Email Notifications</span>
+                                    <p>Alerts from Dr. Mrs. Preeti Joshi</p>
+                                </div>
+                                <span class="lock-icon">🔒</span>
+                            </div>
+                            <div class="setting-row">
+                                <div class="s-info">
+                                    <span>Public AI Report</span>
+                                    <p>Mandatory Faculty Access Enabled</p>
+                                </div>
+                                <span class="lock-icon">🔒</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <footer class="panel-footer">
+                        <label for="settings-toggle" class="save-btn">Save Changes</label>
+                    </footer>
+                </div>
+            </div>
+
+            <header class="content-header">
+                <h1>Personal Information</h1>
+                <button class="edit-btn">Edit Profile</button>
+            </header>
+
+            <section class="info-grid">
+                <div class="info-group">
+                    <label>Full Name</label>
+                    <p>NAGODE RITESH TANAJI</p>
+                </div>
+                <div class="info-group">
+                    <label>Mother's Name</label>
+                    <p>TRUPTI</p>
+                </div>
+                <div class="info-group">
+                    <label>Program</label>
+                    <p>B.Tech.</p>
+                </div>
+                <div class="info-group">
+                    <label>Branch</label>
+                    <p>COMPUTER SCIENCE AND ENGINEERING</p>
+                </div>
+                <div class="info-group">
+                    <label>Academic Year</label>
+                    <p>2025-26</p>
+                </div>
+                <div class="info-group">
+                    <label>Current Semester</label>
+                    <p>Semester - I</p>
+                </div>
+            </section>
+
+            <section class="academic-summary">
+                <h3>Academic Overview</h3>
+                <div class="summary-cards">
+                    <div class="s-card">
+                        <label>Attendance Efficiency</label>
+                        <p>88.7% Good!</p>
+                    </div>
+                    <div class="s-card">
+                        <label>Total Credits</label>
+                        <p>23.00 Earned</p>
+                    </div>
+                    <div class="s-card">
+                        <label>Result Status</label>
+                        <p class="status-pass">PASS</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>

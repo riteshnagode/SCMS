@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management | Admin</title>
+    <link rel="stylesheet" href="admin-users.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+    --navy: #0e2a53;
+    --blue: #1a73e8;
+    --bg: #f8fafc;
+    --white: #ffffff;
+    --green: #10b981;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+body { background: var(--bg); height: 100vh; overflow: hidden; }
+
+.admin-wrapper { display: flex; height: 100vh; }
+
+.sidebar { width: 280px; background: var(--navy); color: white; padding: 40px 20px; flex-shrink: 0; }
+.main-content { flex-grow: 1; padding: 40px; overflow-y: auto; }
+
+.top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+.btn-primary { background: var(--blue); color: white; padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; }
+.btn-secondary { background: white; border: 1px solid #ddd; padding: 10px 20px; border-radius: 8px; margin-left: 10px; cursor: pointer; }
+
+.user-table-card { background: var(--white); border-radius: 16px; padding: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
+.table-tools { display: flex; justify-content: space-between; margin-bottom: 25px; }
+.search-box input { padding: 10px 15px; width: 300px; border-radius: 8px; border: 1px solid #ddd; outline: none; }
+
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; padding: 15px; color: #64748b; font-size: 0.75rem; text-transform: uppercase; border-bottom: 2px solid #f1f5f9; }
+td { padding: 15px; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
+
+.user-info { display: flex; align-items: center; gap: 12px; }
+.u-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.7rem; font-weight: bold; }
+.u-avatar.faculty { background: #6d28d9; }
+.u-avatar.student { background: #ef4444; }
+
+.role-tag { background: #f1f5f9; padding: 4px 10px; border-radius: 4px; font-weight: 600; font-size: 0.75rem; }
+.status-dot { position: relative; padding-left: 15px; font-weight: 600; }
+.status-dot.active::before { content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 8px; height: 8px; background: var(--green); border-radius: 50%; }
+
+.btn-manage { padding: 6px 12px; background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 4px; cursor: pointer; font-size: 0.8rem; }
+   
+   .back{
+    margin-left: 40px;
+    margin-top: 40px;
+    color:black;
+    font-size: xx-large;
+    font-weight: bolder;
+}</style>
+</head>
+<body>
+     <a  style="text-decoration: none;" href="http://127.0.0.1:5500/adminfaculty.html"><div class="back">←</div></a>
+
+
+    <!-- <div class="admin-wrapper">
+        <aside class="sidebar">
+            <div class="admin-profile">
+                <div class="avatar">AD</div>
+                <h3>System Admin</h3>
+                <p>WIT Solapur</p>
+            </div>
+            <nav class="nav-menu">
+                <a href="admin-dashboard.html" class="nav-item">📊 Dashboard</a>
+                <a href="#" class="nav-item active">👤 User Management</a>
+                <a href="admin-finances.html" class="nav-item">💰 Treasury</a>
+                <a href="index.html" class="nav-item logout">⏻ Logout</a>
+            </nav>
+        </aside> -->
+
+        <main class="main-content">
+            <header class="top-bar">
+                <h1>User Management</h1>
+                <div class="header-actions">
+                    <button class="btn-primary">+ Add New User</button>
+                    <button class="btn-secondary">Export Data</button>
+                </div>
+            </header>
+
+            <section class="user-table-card">
+                <div class="table-tools">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search by Name">
+                    </div>
+                    <div class="filter-group">
+                    </div>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>ID / PRN</th>
+                            <th>Department</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="user-info">
+                                    <div class="u-avatar faculty">SM</div>
+                                    <span>Ms. S. S. Mathpati</span>
+                                </div>
+                            </td>
+                            <td>WIT-FAC-2026-M02</td>
+                            <td>CSE</td>
+                            <td><span class="role-tag">Faculty</span></td>
+                            <td><span class="status-dot active">Active</span></td>
+                            <td><button class="btn-manage">Manage</button></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-info">
+                                    <div class="u-avatar student">AB</div>
+                                    <span>Mr.A. Babar</span>
+                                </div>
+                            </td>
+                            <td>WIT-FAC-2026-M03</td>
+                            <td>CSE</td>
+                            <td><span class="role-tag">Faculty</span></td>
+                            <td><span class="status-dot active">Active</span></td>
+                            <td><button class="btn-manage">Manage</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>
